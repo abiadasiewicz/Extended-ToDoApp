@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
           @Id
           @GeneratedValue(strategy = GenerationType.IDENTITY)
           private int id;
-          @NotBlank
+          @NotBlank(message = "description must not be null")
           private String description;
           private boolean done;
 
@@ -18,7 +18,13 @@ import javax.validation.constraints.NotBlank;
 
           }
 
-          public int getId() {
+     Task(final int id, final String description, final boolean done) {
+          this.id = id;
+          this.description = description;
+          this.done = done;
+     }
+
+     public int getId() {
                return id;
           }
 
