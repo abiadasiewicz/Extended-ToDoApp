@@ -6,11 +6,12 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
      @Table(name = "tasks")
-     class Task {
+     public class Task {
           @Id
           @GeneratedValue(strategy = GenerationType.IDENTITY)
           private int id;
-          @NotBlank(message = "description must not be null")
+          //TODO does not working :(
+          @NotBlank (message = "eloelo")
           private String description;
           private boolean done;
 
