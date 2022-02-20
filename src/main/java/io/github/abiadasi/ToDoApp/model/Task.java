@@ -4,14 +4,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 
-@Entity
+     @Entity
      @Table(name = "tasks")
      public class Task {
           @Id
           @GeneratedValue(strategy = GenerationType.IDENTITY)
           private int id;
-          //TODO does not working :(
-          @NotBlank (message = "eloelo")
+          @NotBlank (message = "Task description must not be blank :(")
           private String description;
           private boolean done;
 
@@ -19,17 +18,17 @@ import javax.validation.constraints.NotBlank;
 
           }
 
-     Task(final int id, final String description, final boolean done) {
-          this.id = id;
-          this.description = description;
-          this.done = done;
-     }
+          Task(final int id, final String description, final boolean done) {
+               this.id = id;
+               this.description = description;
+               this.done = done;
+          }
 
-     public int getId() {
+          public int getId() {
                return id;
           }
 
-          void setId(int id) {
+          public void setId(int id) {
                this.id = id;
           }
 
