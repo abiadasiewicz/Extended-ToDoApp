@@ -5,6 +5,9 @@ import org.flywaydb.core.api.migration.Context;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
+/**
+ * Example for manual migration
+ */
 public class V2__insert_example_todo extends BaseJavaMigration {
     @Override
     public void migrate(final Context context){

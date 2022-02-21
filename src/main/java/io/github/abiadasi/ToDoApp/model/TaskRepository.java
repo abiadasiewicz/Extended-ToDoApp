@@ -12,7 +12,7 @@ import java.util.Optional;
         List<Task> findAll();
         
         Optional<Task> findById(Integer id);
-        
+
         Task save(Task entity);
 
         List<Task> findAll(Sort sort);
