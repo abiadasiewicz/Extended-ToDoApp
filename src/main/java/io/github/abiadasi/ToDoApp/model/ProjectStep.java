@@ -15,7 +15,7 @@ public class ProjectStep {
      private int daysToDeadline;
      @ManyToOne()
      @JoinColumn(name = "project_id")
-     private Project projects;
+     private Project project;
 
      public ProjectStep() {
 
@@ -43,11 +43,11 @@ public class ProjectStep {
      }
 
      public Project getProjects() {
-          return projects;
+          return project;
      }
 
      void setProjects(final Project projects) {
-          this.projects = projects;
+          this.project = projects;
      }
 
      public int getDaysToDeadline() {

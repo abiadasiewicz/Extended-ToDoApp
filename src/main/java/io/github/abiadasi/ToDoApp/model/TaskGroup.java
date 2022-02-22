@@ -17,7 +17,7 @@ public class TaskGroup {
      @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
      private Set<Task> taskList;
      @ManyToOne
-     private Project projects;
+     private Project project;
 
      public TaskGroup() {
 
@@ -62,10 +62,10 @@ public class TaskGroup {
      }
 
      public Project getProjects() {
-          return projects;
+          return project;
      }
 
      void setProjects(final Project projects) {
-          this.projects = projects;
+          this.project = projects;
      }
 }

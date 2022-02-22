@@ -13,10 +13,10 @@ public class Project {
      private int id;
      @NotBlank (message = "Project's description must not be blank :(")
      private String description;
-     @OneToMany(mappedBy = "projects")
+     @OneToMany(mappedBy = "project")
      private Set<TaskGroup> groups;
-     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projects")
-     private Set<ProjectStep> step;
+     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+     private Set<ProjectStep> steps;
 
      public Project() {
 
@@ -52,10 +52,10 @@ public class Project {
      }
 
      Set<ProjectStep> getProjectSteps() {
-          return step;
+          return steps;
      }
 
      void setProjectSteps(final Set<ProjectStep> steps) {
-          this.step = steps;
+          this.steps = steps;
      }
 }
