@@ -21,5 +21,7 @@ import java.util.Optional;
 
         Page<Task> findAll(Pageable page);
 
+        boolean existsByDoneIsFalseAndGroup_Id(Integer groupId);
+
         List<Task> findByDone(boolean done);
     }

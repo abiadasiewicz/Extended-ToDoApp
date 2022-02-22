@@ -1,7 +1,5 @@
 package io.github.abiadasi.ToDoApp.model;
 
-import org.hibernate.boot.model.source.spi.InheritanceType;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -9,14 +7,19 @@ import java.time.LocalDateTime;
 
      @Entity
      @Table(name = "tasks")
-     public class Task extends BaseAuditableEntity{
+     public class Task{
           @Id
           @GeneratedValue(strategy = GenerationType.IDENTITY)
           private int id;
-          @NotBlank (message = "Task description must not be blank :(")
+          @NotBlank (message = "Task's description must not be blank :(")
           private String description;
           private boolean done;
           private LocalDateTime deadline;
+          @Embedded
+          private Audit audit = new Audit();
+          @ManyToOne
+          @JoinColumn(name = "task_group_id")
+          private TaskGroup group;
 
           public Task() {
 
@@ -60,9 +63,18 @@ import java.time.LocalDateTime;
                this.deadline = deadline;
           }
 
+          TaskGroup getGroup() {
+               return group;
+          }
+
+          void setGroup(final TaskGroup group) {
+               this.group = group;
+          }
+
           public void updateFrom(final Task sourceTask){
                description = sourceTask.description;
                done = sourceTask.done;
                deadline = sourceTask.deadline;
+               group = sourceTask.group;
           }
      }
