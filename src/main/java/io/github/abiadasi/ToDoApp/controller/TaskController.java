@@ -83,7 +83,7 @@ class TaskController {
 
 
 
-    //TODO is not working properly
+    //TODO it is not working properly
 //    @RequestMapping(value = "/tasks/search/done")
 //        ResponseEntity<?> readTasksByDone(boolean isDone){
 //        logger.warn(("Exposing all tasks by done flag"));
