@@ -37,18 +37,20 @@ public class ProjectService {
         if(!config.getTemplate().isAllowMultipleTasks() && taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)){
             throw new IllegalStateException("Only one undone group from project is allowed");
         }
-        TaskGroup taskResult = projectRepository.findById(projectId)
+        TaskGroup result = projectRepository.findById(projectId)
                 .map(project -> {
-                   var result = new TaskGroup();
-                   result.setDescription(project.getDescription());
-                   result.setTaskList(
+                   var targetGroup = new TaskGroup();
+                   targetGroup.setDescription(project.getDescription());
+                   targetGroup.setTaskList(
                            project.getProjectSteps().stream()
                                 .map(step ->new Task(
                                         step.getDescription(),
                                         deadline.plusDays(step.getDaysToDeadline())))
                                    .collect(Collectors.toSet()));
-                   return result;
-                }).orElseThrow(() -> new IllegalStateException("Project with given ID not found"));
-        return new GroupReadModel(taskResult);
+                   targetGroup.setProjects(project);
+                   return taskGroupRepository.save(targetGroup);
+                }).orElseThrow(() -> new IllegalArgumentException("Project with given ID not found"));
+
+        return new GroupReadModel(result);
     }
 }

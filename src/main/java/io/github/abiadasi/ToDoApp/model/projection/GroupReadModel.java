@@ -19,7 +19,7 @@ public class GroupReadModel {
     public GroupReadModel(TaskGroup source) {
         description = source.getDescription();
         source.getTaskList().stream()
-                .map(task -> getDeadline())
+                .map(task -> task.getDeadline())
                 .max(LocalDateTime::compareTo)
                 .ifPresent(date -> deadline = date);
 

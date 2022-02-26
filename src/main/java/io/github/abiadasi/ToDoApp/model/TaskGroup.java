@@ -61,11 +61,11 @@ public class TaskGroup {
           this.taskList = taskList;
      }
 
-     public Project getProjects() {
+     public Project getProject() {
           return project;
      }
 
-     void setProjects(final Project projects) {
+     public void setProjects(final Project projects) {
           this.project = projects;
      }
 }
