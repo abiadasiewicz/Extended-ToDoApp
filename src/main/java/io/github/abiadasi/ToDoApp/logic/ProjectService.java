@@ -3,16 +3,12 @@ package io.github.abiadasi.ToDoApp.logic;
 import io.github.abiadasi.ToDoApp.TaskConfigurationProperties;
 import io.github.abiadasi.ToDoApp.model.*;
 import io.github.abiadasi.ToDoApp.model.projection.GroupReadModel;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.RequestScope;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-@RequestScope
 public class ProjectService {
 
     private ProjectRepository projectRepository;
