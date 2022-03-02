@@ -5,11 +5,6 @@ import io.github.abiadasi.ToDoApp.model.TaskGroupRepository;
 import io.github.abiadasi.ToDoApp.model.TaskRepository;
 import io.github.abiadasi.ToDoApp.model.projection.GroupReadModel;
 import io.github.abiadasi.ToDoApp.model.projection.GroupWriteModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 import java.util.stream.Collectors;

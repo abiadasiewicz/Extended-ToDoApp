@@ -1,6 +1,7 @@
 package io.github.abiadasi.ToDoApp.model.projection;
 
 import io.github.abiadasi.ToDoApp.model.Task;
+import io.github.abiadasi.ToDoApp.model.TaskGroup;
 
 import java.time.LocalDateTime;
 
@@ -24,8 +25,7 @@ public class GroupTaskWriteModel {
         this.deadline = deadline;
     }
 
-    public Task toTask(){
-        var result = new Task(description, deadline);
-        return result;
+    public Task toTask(final TaskGroup group){
+        return new Task(description, deadline);
     }
 }

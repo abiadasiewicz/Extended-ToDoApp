@@ -7,14 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.context.ActiveProfiles;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TaskControllerE2ETest {
@@ -39,6 +35,19 @@ class TaskControllerE2ETest {
 
         //then
         assertThat(result).hasSize(2+beforeSize);
+    }
 
+    @Test
+    void hhtpGet_returns_onlyOneTask(){
+        int beforeSize = repository.findAll().size();
+        //given
+        repository.save(new Task("foo", LocalDateTime.now()));
+        repository.save(new Task("bar", LocalDateTime.now()));
+
+        //when (id = 3 because of V2__insert_example_todo migration)
+        Task result = restTemplate.getForObject("http://localhost:"+port+"/tasks/3", Task.class);
+
+        //then
+        assertThat(result).hasFieldOrPropertyWithValue("description", "bar");
     }
 }

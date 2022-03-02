@@ -21,8 +21,15 @@ import java.time.LocalDateTime;
           @JoinColumn(name = "task_group_id")
           private TaskGroup group;
 
-          Task(){
+          public Task(){
+          }
 
+          public Task(String description, LocalDateTime deadline, TaskGroup group) {
+               this.deadline = deadline;
+               this.description = description;
+               if(group != null) {
+                    this.group = group;
+               }
           }
 
           public Task(String description, LocalDateTime deadline) {
@@ -30,12 +37,6 @@ import java.time.LocalDateTime;
                this.description = description;
           }
 
-
-          Task(final int id, final String description, final boolean done) {
-               this.id = id;
-               this.description = description;
-               this.done = done;
-          }
 
           public int getId() {
                return id;
