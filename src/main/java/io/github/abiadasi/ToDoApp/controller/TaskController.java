@@ -4,7 +4,6 @@ import io.github.abiadasi.ToDoApp.model.Task;
 import io.github.abiadasi.ToDoApp.model.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping("/tasks")
 class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository repository;
@@ -24,25 +24,25 @@ class TaskController {
         this.repository = repository;
     }
 
-    @GetMapping(value = "/tasks", params = {"!sort", "!size", "!page"})
+    @GetMapping(params = {"!sort", "!size", "!page"})
     ResponseEntity <?> readAllTasks(){
         logger.warn("Exposing all the tasks!");
         return ResponseEntity.ok(repository.findAll());
     }
 
-    @GetMapping(value = "/tasks", params = "!sort")
+    @GetMapping(params = "!sort")
     ResponseEntity <List<Task>> readAllTasks(Pageable page){
         logger.info("Custom pagable");
         return ResponseEntity.ok(repository.findAll(page).getContent());
     }
 
-    @GetMapping(value = "/tasks", params = "sort")
+    @GetMapping(params = "sort")
     ResponseEntity<List<Task>> readAllTasks(Sort sort){
         logger.info("Custom pagable");
         return ResponseEntity.ok(repository.findAll(sort));
     }
 
-    @PutMapping(value = "tasks/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Task toUpdate) {
         if (!repository.existsById(id)) {
             ResponseEntity.notFound().build();
@@ -56,7 +56,7 @@ class TaskController {
 
     }
 
-    @GetMapping(value = "tasks/{id}")
+    @GetMapping(value = "/{id}")
     ResponseEntity<Task> readTask(@PathVariable int id) {
         return repository.findById(id)
                 .map(ResponseEntity::ok)
@@ -65,14 +65,14 @@ class TaskController {
 
 
 
-    @PostMapping(value = "tasks")
+    @PostMapping
     ResponseEntity<Task> createTask(@RequestBody @Valid Task toCreate){
         Task result = repository.save(toCreate);
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
     @Transactional
-    @PatchMapping(value = "tasks")
+    @PatchMapping
     public ResponseEntity<Task> toggleTask(@RequestBody int id){
         if(!repository.existsById(id)) {
             ResponseEntity.notFound().build();
@@ -82,13 +82,11 @@ class TaskController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/search/done")
+    ResponseEntity<List<Task>> readDoneTasks(@RequestParam(defaultValue = "true") boolean state){
+        return ResponseEntity.ok(
+                repository.findByDone(state)
+        );
+    }
 
-
-    //TODO it is not working properly
-//    @RequestMapping(value = "/tasks/search/done")
-//        ResponseEntity<?> readTasksByDone(boolean isDone){
-//        logger.warn(("Exposing all tasks by done flag"));
-//
-//        return ResponseEntity.ok(repository.findByDone(isDone));
-//    }
 }
